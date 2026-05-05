@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ABHISHEK RAJPUT | Digital Architect</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+  --bg-light: #f8f9ff;
+  --bg-lighter: #ffffff;
+  --cyan: #0077ff;
+  --pink: #ff006e;
+  --purple: #7a2cff;
+  --green: #2d9c57;
+  --text-dark: #1a1a2e;
+  --text-gray: #555555;
+  --border: #e0e0e0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-lighter) 100%);
+  color: var(--text-dark);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ── CANVAS BG ── */
+#bgCanvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 5%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--cyan);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  color: var(--text-gray);
+  text-decoration: none;
+  transition: .3s;
+  text-transform: uppercase;
+}
+
+.nav-links a:hover {
+  color: var(--cyan);
+}
+
+/* ── MAIN ── */
+main {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── HERO ── */
+#hero {
+  display: flex;
+  align-items: center;
+  padding: 5.5rem 5% 3rem;
+  min-height: auto;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex: 1;
+}
+
+.hero-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  color: var(--green);
+  text-transform: uppercase;
+}
+
+.hero-eyebrow::before {
+  content: '[ ';
+  color: var(--purple);
+}
+
+.hero-eyebrow::after {
+  content: ' ]';
+  color: var(--purple);
+}
+
+.hero-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(2.8rem, 8vw, 4rem);
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.hero-name .first-name {
+  color: var(--cyan);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.hero-name .last-name {
+  background: linear-gradient(90deg, var(--pink), var(--purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+}
+
+/* ── SECTIONS ── */
+section {
+  position: relative;
+  z-index: 1;
+  padding: 3rem 5%;
+  border-top: 1px solid var(--border);
+}
+
+.section-header {
+  margin-bottom: 2rem;
+}
+
+.section-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  color: var(--green);
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+}
+
+.section-eyebrow::before {
+  content: '// ';
+  color: var(--purple);
+}
+
+.section-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 0.8rem;
+  color: var(--text-dark);
+}
+
+.section-title .accent {
+  color: var(--pink);
+}
+
+.section-line {
+  width: 60px;
+  height: 2px;
+  background: var(--cyan);
+}
+
+/* ── IDENTITY GRID ── */
+#identity {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.id-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.8rem;
+}
+
+.id-card {
+  padding: 1rem;
+  border: 1px solid var(--border);
+  background: white;
+  position: relative;
+  transition: all .3s;
+}
+
+.id-card:hover {
+  border-color: var(--cyan);
+  box-shadow: 0 4px 12px rgba(0, 119, 255, 0.15);
+  transform: translateX(4px);
+  background: rgba(0, 119, 255, 0.02);
+}
+
+.id-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  color: var(--text-gray);
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+
+.id-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+/* ── SKILLS GRID ── */
+#skills {
+  display: block;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.2rem;
+  margin-top: 1rem;
+}
+
+.skill-card {
+  padding: 1.3rem;
+  border: 1px solid var(--border);
+  background: white;
+  position: relative;
+  transition: all .3s;
+}
+
+.skill-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--cyan);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s;
+}
+
+.skill-card:hover {
+  border-color: var(--cyan);
+  box-shadow: 0 4px 15px rgba(0, 119, 255, 0.15);
+  transform: translateY(-3px);
+}
+
+.skill-card:hover::before {
+  transform: scaleX(1);
+}
+
+.skill-icon {
+  font-size: 1.5rem;
+  color: var(--cyan);
+  margin-bottom: 0.5rem;
+}
+
+.skill-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--text-dark);
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+}
+
+.skill-desc {
+  font-size: 0.8rem;
+  color: var(--text-gray);
+  line-height: 1.4;
+}
+
+/* ── CONTACT SECTION ── */
+#contact {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem;
+  border-left: 3px solid var(--cyan);
+  background: white;
+  transition: all .3s;
+}
+
+.contact-item:hover {
+  border-left-color: var(--pink);
+  background: rgba(0, 119, 255, 0.03);
+  padding-left: 1.2rem;
+}
+
+.contact-item i {
+  font-size: 1.2rem;
+  color: var(--cyan);
+  width: 1.2rem;
+}
+
+.contact-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  color: var(--text-gray);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.contact-link {
+  font-size: 0.85rem;
+  color: var(--text-dark);
+  text-decoration: none;
+  transition: color .3s;
+}
+
+.contact-link:hover {
+  color: var(--cyan);
+}
+
+.contact-description {
+  font-size: 0.8rem;
+  color: var(--text-gray);
+  line-height: 1.6;
+  margin-top: 1rem;
+  font-family: 'Space Mono', monospace;
+}
+
+/* ── FOOTER ── */
+footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 1.5rem 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+}
+
+footer p {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.5px;
+  color: var(--text-gray);
+}
+
+.social-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.social-links a {
+  font-size: 1rem;
+  color: var(--cyan);
+  text-decoration: none;
+  transition: all .3s;
+}
+
+.social-links a:hover {
+  color: var(--pink);
+  transform: scale(1.2);
+}
+
+/* ── BACK TO TOP ── */
+#btt {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--cyan);
+  background: white;
+  color: var(--cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all .3s;
+  z-index: 500;
+  font-size: 1rem;
+}
+
+#btt.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+#btt:hover {
+  background: var(--cyan);
+  color: white;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── MOBILE ── */
+@media (max-width: 1024px) {
+  #identity,
+  #contact {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  nav {
+    padding: 0.7rem 5%;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  nav .nav-logo {
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+
+  section {
+    padding: 2.5rem 5%;
+  }
+
+  .hero-name {
+    font-size: 2rem;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #contact {
+    grid-template-columns: 1fr;
+  }
+
+  footer {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .social-links {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  #hero {
+    padding: 4.5rem 4% 1.5rem;
+  }
+
+  section {
+    padding: 2rem 4%;
+  }
+
+  .hero-name {
+    font-size: 1.8rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  #btt {
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">ABHISHEK</a>
+  <ul class="nav-links">
+    <li><a href="#identity">Identity</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- MAIN -->
+<main>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Digital Architect 2026</div>
+      
+      <h1 class="hero-name">
+        <span class="first-name">ABHISHEK</span>
+        <span class="last-name">RAJPUT</span>
+      </h1>
+    </div>
+  </section>
+
+  <!-- IDENTITY -->
+  <section id="identity">
+    <div class="section-header">
+      <div class="section-eyebrow">Personal Data</div>
+      <h2 class="section-title">Identity <span class="accent">Matrix</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="id-grid">
+      <div class="id-card reveal">
+        <div class="id-label">Full Name</div>
+        <div class="id-value">Abhishek Rajput</div>
+      </div>
+
+      <div class="id-card reveal">
+        <div class="id-label">Date of Birth</div>
+        <div class="id-value">10 February 2005</div>
+      </div>
+
+      <div class="id-card reveal">
+        <div class="id-label">Location</div>
+        <div class="id-value">Bihar, India</div>
+      </div>
+
+      <div class="id-card reveal">
+        <div class="id-label">Email</div>
+        <div class="id-value">abishekrajput6203@gmail.com</div>
+      </div>
+
+      <div class="id-card reveal">
+        <div class="id-label">Religion</div>
+        <div class="id-value">Hindu</div>
+      </div>
+
+      <div class="id-card reveal">
+        <div class="id-label">Schooling</div>
+        <div class="id-value">12th Arts · 2023</div>
+      </div>
+
+      <div class="id-card reveal">
+        <div class="id-label">University</div>
+        <div class="id-value">LNMU University</div>
+      </div>
+
+      <div class="id-card reveal">
+        <div class="id-label">Goal</div>
+        <div class="id-value">Software Developer</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-header">
+      <div class="section-eyebrow">Capabilities</div>
+      <h2 class="section-title">Skill <span class="accent">Set</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <i class="fas fa-code skill-icon"></i>
+        <div class="skill-name">Web Dev</div>
+        <div class="skill-desc">Full-stack applications with modern design.</div>
+      </div>
+
+      <div class="skill-card reveal">
+        <i class="fab fa-python skill-icon"></i>
+        <div class="skill-name">Python</div>
+        <div class="skill-desc">Automation & backend development.</div>
+      </div>
+
+      <div class="skill-card reveal">
+        <i class="fas fa-brain skill-icon"></i>
+        <div class="skill-name">AI & Tools</div>
+        <div class="skill-desc">Claude, Leonardo AI, Canva, Make.com</div>
+      </div>
+
+      <div class="skill-card reveal">
+        <i class="fas fa-chart-line skill-icon"></i>
+        <div class="skill-name">Digital Marketing</div>
+        <div class="skill-desc">Content strategy & social automation.</div>
+      </div>
+
+      <div class="skill-card reveal">
+        <i class="fas fa-gamepad skill-icon"></i>
+        <div class="skill-name">Gamification</div>
+        <div class="skill-desc">RPG apps with XP & quests.</div>
+      </div>
+
+      <div class="skill-card reveal">
+        <i class="fas fa-shield-alt skill-icon"></i>
+        <div class="skill-name">Defence Prep</div>
+        <div class="skill-desc">Physical & exam preparation.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-header">
+      <div class="section-eyebrow">Communication</div>
+      <h2 class="section-title">Get in <span class="accent">Touch</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="contact-info">
+      <div class="contact-item reveal">
+        <i class="fas fa-envelope"></i>
+        <div>
+          <span class="contact-label">Email</span>
+          <a href="mailto:abishekrajput6203@gmail.com" class="contact-link">abishekrajput6203@gmail.com</a>
+        </div>
+      </div>
+
+      <div class="contact-item reveal">
+        <i class="fas fa-map-marker-alt"></i>
+        <div>
+          <span class="contact-label">Location</span>
+          <span class="contact-link">Bihar, India</span>
+        </div>
+      </div>
+
+      <div class="contact-item reveal">
+        <i class="fab fa-instagram"></i>
+        <div>
+          <span class="contact-label">Instagram</span>
+          <a href="https://instagram.com/abhishek_rajput_7574" target="_blank" class="contact-link">@abhishek_rajput_7574</a>
+        </div>
+      </div>
+
+      <div class="contact-item reveal">
+        <i class="fas fa-link"></i>
+        <div>
+          <span class="contact-label">GitHub</span>
+          <a href="https://github.com" target="_blank" class="contact-link">github.com/abhishek</a>
+        </div>
+      </div>
+
+      <p class="contact-description">Available for freelance & collaborations. Response &lt; 24hrs</p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+      <div class="contact-item reveal">
+        <i class="fab fa-telegram"></i>
+        <div>
+          <span class="contact-label">Telegram Channel</span>
+          <a href="https://t.me/TechTrovebyb44ner" target="_blank" class="contact-link">Tech Trove Channel</a>
+        </div>
+      </div>
+
+      <div class="contact-item reveal">
+        <i class="fas fa-globe"></i>
+        <div>
+          <span class="contact-label">Portfolio</span>
+          <a href="https://yourportfolio.com" target="_blank" class="contact-link">yourportfolio.com</a>
+        </div>
+      </div>
+
+      <div class="contact-item reveal">
+        <i class="fas fa-phone"></i>
+        <div>
+          <span class="contact-label">Phone</span>
+          <span class="contact-link">+91 XXXXXXXXXX</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 ABHISHEK RAJPUT · DIGITAL ARCHITECT</p>
+  <div class="social-links">
+    <a href="https://github.com" title="GitHub"><i class="fab fa-github"></i></a>
+    <a href="https://instagram.com/abhishek_rajput_7574" title="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="https://t.me/TechTrovebyb44ner" title="Telegram"><i class="fab fa-telegram"></i></a>
+    <a href="mailto:abishekrajput6203@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+  </div>
+</footer>
+
+<button id="btt" title="Back to top"><i class="fas fa-chevron-up"></i></button>
+
+<script>
+// ── CANVAS BG ──
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+resize();
+window.addEventListener('resize', resize);
+
+let t = 0;
+
+function drawBg() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  // Grid
+  ctx.strokeStyle = 'rgba(0, 119, 255, 0.08)';
+  ctx.lineWidth = 0.5;
+  const gridSize = 100;
+  
+  for (let x = 0; x < canvas.width; x += gridSize) {
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, canvas.height);
+    ctx.stroke();
+  }
+
+  for (let y = 0; y < canvas.height; y += gridSize) {
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(canvas.width, y);
+    ctx.stroke();
+  }
+
+  t += 0.01;
+  requestAnimationFrame(drawBg);
+}
+
+drawBg();
+
+// ── SCROLL REVEAL ──
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// ── BACK TO TOP ──
+const btt = document.getElementById('btt');
+window.addEventListener('scroll', () => {
+  btt.classList.toggle('show', window.scrollY > 400);
+});
+
+btt.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+
+</body>
+</html>
